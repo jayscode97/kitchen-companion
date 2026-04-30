@@ -23,5 +23,5 @@ export function useAirFryer() {
     await load();
   };
 
-  return { presets, save, remove };
+  return { presets, save, remove, refresh: load };
 }

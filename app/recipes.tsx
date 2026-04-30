@@ -1,23 +1,27 @@
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { RecipeCard } from '../../components/recipes/RecipeCard';
-import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
-import { EmptyState } from '../../components/ui/EmptyState';
-import { Colors } from '../../constants/colors';
-import { useRecipes } from '../../hooks/useRecipes';
-import { Recipe } from '../../types';
+import { RecipeCard } from '../components/recipes/RecipeCard';
+import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { EmptyState } from '../components/ui/EmptyState';
+import { Colors } from '../constants/colors';
+import { useRecipes } from '../hooks/useRecipes';
+import { Recipe } from '../types';
 
 export default function RecipesScreen() {
-  const { recipes, remove } = useRecipes();
+  const { recipes, remove, refresh } = useRecipes();
   const [toDelete, setToDelete] = useState<Recipe | null>(null);
+
+  useFocusEffect(useCallback(() => { refresh(); }, []));
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.title}>Kitchen Companion</Text>
+        <Pressable onPress={() => router.back()} hitSlop={12} style={styles.backBtn}>
+          <Text style={styles.backText}>← Back</Text>
+        </Pressable>
+        <Text style={styles.title}>Recipes</Text>
       </View>
 
       {recipes.length === 0 ? (
@@ -40,7 +44,7 @@ export default function RecipesScreen() {
       )}
 
       <Pressable style={styles.fab} onPress={() => router.push('/recipe/add')}>
-        <Ionicons name="add" size={34} color={Colors.white} />
+        <Text style={{ fontSize: 36, color: Colors.white, lineHeight: 40 }}>+</Text>
       </Pressable>
 
       <ConfirmDialog
@@ -56,7 +60,16 @@ export default function RecipesScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.warmWhite },
-  header: { paddingHorizontal: 20, paddingTop: 4, paddingBottom: 14 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 4,
+    paddingBottom: 14,
+    gap: 12,
+  },
+  backBtn: { paddingVertical: 4 },
+  backText: { fontSize: 17, color: Colors.warmOrange, fontWeight: '600' },
   title: { fontSize: 30, fontWeight: '800', color: Colors.textPrimary, fontFamily: 'serif' },
   list: { paddingHorizontal: 16, paddingTop: 4 },
   fab: {

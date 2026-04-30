@@ -4,11 +4,38 @@
     "slug": "kitchen-companion",
     "version": "1.0.0",
     "scheme": "kitchencompanion",
-    "platforms": ["ios", "android"],
-    "newArchEnabled": true,
-    "ios": { "supportsTablet": false },
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.kitchencompanion"
+    },
     "android": {
-      "adaptiveIcon": { "backgroundColor": "#FFFDF8" }
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFDF8"
+      },
+      "package": "com.kitchencompanion"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-updates"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "db717c07-16a6-40f5-a6bd-8de99379ae00"
+      }
+    },
+    "owner": "serhan-97",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/db717c07-16a6-40f5-a6bd-8de99379ae00"
     }
   }
 }
