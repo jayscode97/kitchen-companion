@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Kitchen Companion",
+    "slug": "kitchen-companion",
+    "version": "1.0.0",
+    "scheme": "kitchencompanion",
+    "platforms": ["ios", "android"],
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": false },
+    "android": {
+      "adaptiveIcon": { "backgroundColor": "#FFFDF8" }
+    }
+  }
+}
