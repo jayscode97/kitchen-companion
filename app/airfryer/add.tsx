@@ -4,7 +4,6 @@ import { useState } from 'react';
 import {
   Alert,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -47,8 +46,7 @@ export default function AddAirFryerScreen() {
         <View style={{ width: 70 }} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-        {/* Food name */}
+      <View style={styles.content}>
         <TextInput
           style={styles.nameInput}
           value={foodName}
@@ -59,7 +57,6 @@ export default function AddAirFryerScreen() {
           autoFocus
         />
 
-        {/* Temperature */}
         <View style={styles.card}>
           <Text style={styles.cardLabel}>Temperature</Text>
           <Text style={styles.cardValue}>{temperature}°C</Text>
@@ -73,7 +70,6 @@ export default function AddAirFryerScreen() {
           />
         </View>
 
-        {/* Duration */}
         <View style={styles.card}>
           <Text style={styles.cardLabel}>Duration</Text>
           <Text style={styles.cardValue}>{duration} min</Text>
@@ -94,7 +90,7 @@ export default function AddAirFryerScreen() {
         >
           <Text style={styles.saveBtnText}>{saving ? 'Saving…' : 'Save Preset'}</Text>
         </Pressable>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -118,44 +114,45 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
     textAlign: 'center',
   },
-  scroll: { padding: 16, gap: 16, paddingBottom: 40 },
+  content: { flex: 1, padding: 12, gap: 10 },
   nameInput: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '600',
     color: Colors.textPrimary,
     borderWidth: 1,
     borderColor: Colors.divider,
-    borderRadius: 16,
-    paddingHorizontal: 18,
-    paddingVertical: 16,
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     backgroundColor: Colors.cardBackground,
   },
   card: {
+    flex: 1,
     backgroundColor: Colors.cardBackground,
-    borderRadius: 20,
-    padding: 20,
+    borderRadius: 16,
+    padding: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.07,
     shadowRadius: 6,
     elevation: 2,
+    justifyContent: 'center',
   },
-  cardLabel: { fontSize: 15, color: Colors.textSecondary, fontWeight: '600', marginBottom: 4 },
+  cardLabel: { fontSize: 13, color: Colors.textSecondary, fontWeight: '600', marginBottom: 2 },
   cardValue: {
-    fontSize: 36,
+    fontSize: 26,
     fontWeight: '800',
     color: Colors.textPrimary,
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: 6,
     fontFamily: 'serif',
   },
   saveBtn: {
     backgroundColor: Colors.sageGreen,
-    borderRadius: 18,
-    height: 64,
+    borderRadius: 14,
+    height: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 8,
     shadowColor: Colors.sageGreen,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.35,
@@ -163,5 +160,5 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   saveBtnDisabled: { opacity: 0.6 },
-  saveBtnText: { fontSize: 20, fontWeight: '700', color: Colors.white },
+  saveBtnText: { fontSize: 17, fontWeight: '700', color: Colors.white },
 });

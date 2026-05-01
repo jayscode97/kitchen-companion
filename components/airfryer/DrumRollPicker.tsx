@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { Colors } from '../../constants/colors';
 
-const ITEM_H = 58;
-const VISIBLE = 5;
+const ITEM_H = 46;
+const VISIBLE = 3;
 const PADDING = ITEM_H * Math.floor(VISIBLE / 2);
 
 interface Props {
@@ -100,7 +100,7 @@ export function DrumRollPicker({
                       transform: [{ scale }],
                       color: isSelected ? accentColor : Colors.textPrimary,
                       fontWeight: isSelected ? '800' : '400',
-                      fontSize: isSelected ? 26 : 22,
+                      fontSize: isSelected ? 22 : 18,
                     },
                   ]}
                 >
@@ -122,13 +122,13 @@ export function DrumRollPicker({
 const styles = StyleSheet.create({
   wrapper: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   stepBtn: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  stepText: { fontSize: 18, fontWeight: '700' },
+  stepText: { fontSize: 15, fontWeight: '700' },
   pickerContainer: {
     flex: 1,
     height: ITEM_H * VISIBLE,

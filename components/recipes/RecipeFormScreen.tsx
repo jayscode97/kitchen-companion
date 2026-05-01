@@ -34,6 +34,7 @@ export function RecipeFormScreen({ recipeId }: Props) {
   const { save, getOne } = useRecipes();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [instructions, setInstructions] = useState('');
   const [ingredients, setIngredients] = useState<IngredientDraft[]>([newRow()]);
   const [saving, setSaving] = useState(false);
 
@@ -49,6 +50,7 @@ export function RecipeFormScreen({ recipeId }: Props) {
       if (!recipe) return;
       setName(recipe.name);
       setDescription(recipe.description);
+      setInstructions(recipe.instructions);
       setIngredients(
         recipe.ingredients.length
           ? recipe.ingredients.map(ing => ({
@@ -78,6 +80,7 @@ export function RecipeFormScreen({ recipeId }: Props) {
       id: recipeId,
       name: name.trim(),
       description: description.trim(),
+      instructions: instructions.trim(),
       ingredients: ingredients
         .filter(r => r.name.trim() || r.amount.trim())
         .map(r => ({ amount: r.amount, unit: r.unit, name: r.name.trim() })),
@@ -144,6 +147,17 @@ export function RecipeFormScreen({ recipeId }: Props) {
           <Pressable style={styles.addRowBtn} onPress={() => setIngredients(prev => [...prev, newRow()])}>
             <Text style={styles.addRowText}>+ Add Ingredient</Text>
           </Pressable>
+
+          <Text style={styles.sectionLabel}>Cooking Instructions</Text>
+          <TextInput
+            style={styles.instructionsInput}
+            value={instructions}
+            onChangeText={setInstructions}
+            placeholder="Step 1: Preheat oven to 180°C..."
+            placeholderTextColor={Colors.textSecondary}
+            multiline
+            textAlignVertical="top"
+          />
 
           <Pressable
             style={[styles.saveBtn, saving && styles.saveBtnDisabled]}
@@ -228,7 +242,20 @@ const styles = StyleSheet.create({
   addRowBtn: {
     alignItems: 'center',
     paddingVertical: 14,
+    marginBottom: 8,
+  },
+  instructionsInput: {
+    fontSize: 16,
+    color: Colors.textPrimary,
+    borderWidth: 1,
+    borderColor: Colors.divider,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: Colors.cardBackground,
     marginBottom: 24,
+    minHeight: 140,
+    lineHeight: 24,
   },
   addRowText: { fontSize: 18, color: Colors.sageGreen, fontWeight: '700' },
   saveBtn: {

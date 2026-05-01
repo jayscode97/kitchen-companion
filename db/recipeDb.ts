@@ -1,7 +1,7 @@
 import { SQLiteDatabase } from 'expo-sqlite';
 import { Ingredient, Recipe } from '../types';
 
-type RecipeRow = { id: number; name: string; description: string };
+type RecipeRow = { id: number; name: string; description: string; instructions: string };
 type IngRow = {
   id: number;
   recipe_id: number;
@@ -30,7 +30,7 @@ export async function getAllRecipes(db: SQLiteDatabase): Promise<Recipe[]> {
       'SELECT * FROM ingredients WHERE recipe_id = ? ORDER BY sort_order ASC',
       r.id
     );
-    result.push({ ...r, ingredients: ings.map(rowToIngredient) });
+    result.push({ ...r, instructions: r.instructions ?? '', ingredients: ings.map(rowToIngredient) });
   }
   return result;
 }
@@ -42,7 +42,7 @@ export async function getRecipe(db: SQLiteDatabase, id: number): Promise<Recipe 
     'SELECT * FROM ingredients WHERE recipe_id = ? ORDER BY sort_order ASC',
     id
   );
-  return { ...r, ingredients: ings.map(rowToIngredient) };
+  return { ...r, instructions: r.instructions ?? '', ingredients: ings.map(rowToIngredient) };
 }
 
 export async function saveRecipe(
@@ -51,22 +51,25 @@ export async function saveRecipe(
     id?: number;
     name: string;
     description: string;
+    instructions: string;
     ingredients: { amount: string; unit: string; name: string }[];
   }
 ): Promise<number> {
   let recipeId = recipe.id ?? 0;
   if (!recipeId) {
     const res = await db.runAsync(
-      'INSERT INTO recipes (name, description) VALUES (?, ?)',
+      'INSERT INTO recipes (name, description, instructions) VALUES (?, ?, ?)',
       recipe.name,
-      recipe.description
+      recipe.description,
+      recipe.instructions
     );
     recipeId = res.lastInsertRowId;
   } else {
     await db.runAsync(
-      'UPDATE recipes SET name = ?, description = ? WHERE id = ?',
+      'UPDATE recipes SET name = ?, description = ?, instructions = ? WHERE id = ?',
       recipe.name,
       recipe.description,
+      recipe.instructions,
       recipeId
     );
   }

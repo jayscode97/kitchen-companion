@@ -8,13 +8,16 @@
       "ios",
       "android"
     ],
+    "icon": "./icon.png",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.kitchencompanion"
+      "bundleIdentifier": "com.kitchencompanion",
+      "icon": "./icon.png"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#FFFDF8"
+        "foregroundImage": "./icon.png",
+        "backgroundColor": "#2DB611"
       },
       "package": "com.kitchencompanion"
     },

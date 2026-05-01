@@ -41,6 +41,15 @@ export default function ViewRecipePage() {
           </View>
         )}
 
+        {!!recipe.instructions && (
+          <>
+            <Text style={styles.sectionLabel}>Instructions</Text>
+            <View style={styles.instructionsCard}>
+              <Text style={styles.instructionsText}>{recipe.instructions}</Text>
+            </View>
+          </>
+        )}
+
         {recipe.ingredients.length > 0 && (
           <>
             <Text style={styles.sectionLabel}>Ingredients</Text>
@@ -133,4 +142,16 @@ const styles = StyleSheet.create({
   ingUnit: { fontSize: 14, fontWeight: '600', color: Colors.sageGreen, marginTop: 1 },
   ingName: { flex: 1, fontSize: 18, color: Colors.textPrimary },
   divider: { height: 1, backgroundColor: Colors.divider, marginHorizontal: 18 },
+  instructionsCard: {
+    backgroundColor: Colors.cardBackground,
+    borderRadius: 16,
+    padding: 18,
+    marginBottom: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  instructionsText: { fontSize: 16, color: Colors.textPrimary, lineHeight: 26 },
 });

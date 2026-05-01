@@ -8,7 +8,8 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
     CREATE TABLE IF NOT EXISTS recipes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      description TEXT DEFAULT ''
+      description TEXT DEFAULT '',
+      instructions TEXT DEFAULT ''
     );
 
     CREATE TABLE IF NOT EXISTS ingredients (
@@ -28,4 +29,9 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
       duration INTEGER DEFAULT 20
     );
   `);
+  try {
+    await db.runAsync("ALTER TABLE recipes ADD COLUMN instructions TEXT DEFAULT ''");
+  } catch {
+    // column already exists on existing installs
+  }
 }
